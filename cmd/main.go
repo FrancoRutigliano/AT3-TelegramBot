@@ -9,4 +9,6 @@ func main() {
 	if err := bot.StartBot(); err != nil {
 		log.Fatal("error al inicializar el bot")
 	}
+
+	log.Println("Connected")
 }

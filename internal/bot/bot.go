@@ -2,6 +2,7 @@ package bot
 
 import (
 	"atomico3bot/config"
+	"atomico3bot/internal/bot/handlers"
 	"log"
 
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
@@ -24,6 +25,12 @@ func StartBot() error {
 	u.Timeout = 60
 
 	updates, _ := bot.GetUpdatesChan(u)
+
+	for update := range updates {
+		if update.Message != nil {
+			handlers.HandleMessage(bot, update.Message)
+		}
+	}
 
 	return nil
 }
