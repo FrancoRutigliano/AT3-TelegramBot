@@ -30,13 +30,11 @@ func StartBot() error {
 		if update.Message != nil {
 
 			if update.Message.IsCommand() {
-				log.Printf("Detectado un comando: %s\n", update.Message.Command())
 				handlers.HandleCommands(bot, update.Message)
 				continue
 			}
 
-			log.Println("Mensaje normal detectado, manejando...")
-			handlers.HandleMessage(bot, update.Message)
+			handlers.HandleMessage(bot, update.Message, config.TokenAccessHug)
 		}
 	}
 

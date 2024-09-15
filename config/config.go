@@ -8,6 +8,7 @@ import (
 
 type Config struct {
 	TokenTelegramAccess string
+	TokenAccessHug      string
 }
 
 func SetUpConfig() (Config, error) {
@@ -18,5 +19,6 @@ func SetUpConfig() (Config, error) {
 
 	return Config{
 		TokenTelegramAccess: os.Getenv("TOKEN_TELEGRAM_ACCESS"),
+		TokenAccessHug:      os.Getenv("ACCESS_TOKEN_HUG"),
 	}, nil
 }
