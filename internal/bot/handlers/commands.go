@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"atomico3bot/internal/service"
+	"fmt"
 	"log"
 
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
@@ -22,6 +24,16 @@ func HandleCommands(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	case "stacking":
 
 	case "price":
+
+		price, err := service.GetTokenPrice()
+		if err != nil {
+			msg := tgbotapi.NewMessage(message.Chat.ID, "Lo siento, no pude obtener el precio del token en este momento.")
+			bot.Send(msg)
+			return
+		}
+
+		msg := tgbotapi.NewMessage(message.Chat.ID, fmt.Sprintf("El precio actual de Atomico es: %.6f USDT", price))
+		bot.Send(msg)
 
 	default:
 		msg := tgbotapi.NewMessage(message.Chat.ID, "Comando no reconocido.")
