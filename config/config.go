@@ -6,11 +6,17 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func SetUpConfig() (string, error) {
+type Config struct {
+	TokenTelegramAccess string
+}
+
+func SetUpConfig() (Config, error) {
 	err := godotenv.Load()
 	if err != nil {
-		return "", err
+		return Config{}, err
 	}
 
-	return os.Getenv("TOKEN_ACCESS"), nil
+	return Config{
+		TokenTelegramAccess: os.Getenv("TOKEN_TELEGRAM_ACCESS"),
+	}, nil
 }

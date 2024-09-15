@@ -9,12 +9,12 @@ import (
 )
 
 func StartBot() error {
-	token, err := config.SetUpConfig()
+	config, err := config.SetUpConfig()
 	if err != nil {
 		log.Fatal("error loading .env data")
 	}
 
-	bot, err := tgbotapi.NewBotAPI(token)
+	bot, err := tgbotapi.NewBotAPI(config.TokenTelegramAccess)
 	if err != nil {
 		return err
 	}
