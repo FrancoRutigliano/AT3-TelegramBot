@@ -24,10 +24,15 @@ func StartBot() error {
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
-	updates, _ := bot.GetUpdatesChan(u)
+	updates, err := bot.GetUpdatesChan(u)
+	if err != nil {
+		log.Fatal("error al obtener actualizaciones")
+	}
 
 	for update := range updates {
 		if update.Message != nil {
+			log.Printf("Mensaje recibido: %s", update.Message.Text)
+			log.Printf("Mensaje de respuesta: %v", update.Message.ReplyToMessage)
 
 			if update.Message.IsCommand() {
 				handlers.HandleCommands(bot, update.Message)

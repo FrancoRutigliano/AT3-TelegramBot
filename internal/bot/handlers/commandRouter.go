@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"atomico3bot/internal/bot/handlers/commands"
 	"atomico3bot/internal/service"
 	"fmt"
 	"log"
@@ -22,6 +23,19 @@ func HandleCommands(bot *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	case "info":
 
 	case "stacking":
+
+	case "rules":
+		msg := tgbotapi.NewMessage(message.Chat.ID, "Reglas del grupo: \n1. Respeto mutuo \n2. No spam \n3. No mensajes ofensivos")
+		bot.Send(msg)
+
+	case "ban":
+		if err := commands.HandleBan(bot, message); err != nil {
+			msg := tgbotapi.NewMessage(message.Chat.ID, err.Error())
+			bot.Send(msg)
+			return
+		}
+		msg := tgbotapi.NewMessage(message.Chat.ID, "usuario baneado correctamente")
+		bot.Send(msg)
 
 	case "price":
 
